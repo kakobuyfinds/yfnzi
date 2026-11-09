@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta name="theme-color" content="#fff5ed">
+  <title>CSSBuy spreadsheet en français | Tailles, photos QC et frais</title>
+  <meta name="description" content="Comprendre un CSSBuy spreadsheet, vérifier les liens produits, comparer les tailles et les photos QC, puis estimer le coût livré avant de commander.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="CSSBuy spreadsheet en français | Tailles, photos QC et frais">
+  <meta property="og:description" content="Un carnet de vérification en français pour passer du repérage d’un article à une estimation du coût livré.">
+  <!-- Repérage éditorial. La première page de Bing n’était pas accessible.
+       Dix sites consultés via une recherche web de « CSSBuy spreadsheet », sans rang Bing attribué.
+       cssbuyship.com — catégories et navigation
+       cssbuyhome.com — liens produits, tailles, QC et expédition
+       cssbuysspreadsheet.com — filtres, liens sources et contexte des photos
+       cssbuysh.com — comparaisons de fiches et guides par catégorie
+       cssbuyfind.com — origine des annonces et parcours de sélection
+       spreadsheetcssbuy.net — format tableur et champs du catalogue
+       cssbuyluxe.com — distinction entre prix affiché et frais d’acheminement
+       cssbuy.site — recherche et catégories de vêtements
+       rep.tools/guides/cssbuy-spreadsheet — distinction entre lien vendeur et lien agent
+       cssbuysale.com — entrées par familles d’articles
+       Les chiffres, offres et affirmations commerciales de ces sites ne sont pas repris. -->
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #fff5ed;
+      --surface: #fffdf9;
+      --ink: #301d29;
+      --muted: #654d5a;
+      --berry: #702044;
+      --peach: #ffdcc8;
+      --line: #dfbfb9;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 1rem/1.6 system-ui, sans-serif; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1, h2, h3 { line-height: 1.12; }
+    h1 { font-size: clamp(2.4rem, 8vw, 6rem); letter-spacing: -.07em; }
+    h2 { font-size: clamp(1.65rem, 4vw, 2.65rem); letter-spacing: -.04em; }
+    h3 { font-size: 1.28rem; }
+    a { color: var(--berry); text-underline-offset: .2em; }
+    :focus-visible { outline: 3px solid #8a2853; outline-offset: 4px; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(72rem, calc(100% - 2rem)); margin-inline: auto; }
+    .mast { background: var(--surface); border-bottom: 1px solid var(--line); }
+    .mast .wrap, footer .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .4rem 1.25rem; padding-block: .85rem; }
+    .brand { font-weight: 900; letter-spacing: -.035em; }
+    .label { color: var(--berry); font-size: .76rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
+    .categories { background: var(--peach); border-bottom: 1px solid var(--line); }
+    .categories .wrap { padding-block: .75rem; }
+    .categories ul { display: flex; flex-wrap: wrap; gap: 0 .4rem; list-style: none; padding: 0; margin: .15rem 0 0; }
+    .categories a { display: block; padding: .7rem .5rem; font-weight: 700; }
+    .hero { text-align: center; padding-top: clamp(2rem, 5vw, 4.25rem); }
+    .hero h1 { margin: .4rem 0 .8rem; }
+    .hero .intro { max-width: 64ch; margin-inline: auto; }
+    .cover { display: grid; grid-template-columns: minmax(0, 1fr); margin-top: 1.4rem; border: 1px solid var(--line); background: var(--surface); }
+    .cover img { width: 100%; height: clamp(12rem, 32vw, 24rem); object-fit: contain; background: white; }
+    figcaption { color: var(--muted); font-size: .88rem; padding: .55rem .8rem; border-top: 1px solid var(--line); }
+    .block { margin-top: clamp(2rem, 5vw, 4rem); }
+    .block > h2, .block > .label { margin-bottom: .75rem; }
+    .worksheet { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 0; list-style: none; background: var(--peach); border: 1px solid var(--line); }
+    .worksheet li { padding: 1rem; }
+    .worksheet li + li { border-left: 1px solid var(--line); }
+    .worksheet strong { display: block; margin-bottom: .22rem; }
+    .note { max-width: 76ch; color: var(--muted); }
+    .story { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 1rem 2rem; align-items: start; padding-block: 1.4rem; border-top: 1px solid var(--line); }
+    .story h3 { margin: .35rem 0 .65rem; }
+    .story p + p { margin-top: .65rem; }
+    .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+    .pair figure { border: 1px solid var(--line); background: var(--surface); }
+    .pair img { width: 100%; aspect-ratio: 1; height: auto; object-fit: contain; background: #fff; }
+    .budget { padding: clamp(1rem, 3vw, 2rem); background: var(--peach); border: 1px solid var(--line); }
+    .budget h3 { margin-bottom: .55rem; }
+    .budget p + p { margin-top: .65rem; }
+    .faq details { border-top: 1px solid var(--line); padding: .55rem 0; }
+    .faq details:last-child { border-bottom: 1px solid var(--line); }
+    .faq summary { cursor: pointer; font-weight: 750; padding-block: .4rem; }
+    .faq details p { max-width: 74ch; margin: .2rem 0 .55rem; }
+    .cta { margin-bottom: clamp(2rem, 5vw, 4rem); }
+    .button { display: inline-block; padding: .7rem 1.1rem; background: var(--berry); color: #fff; font-weight: 750; text-decoration: none; }
+    .button:hover { text-decoration: underline; }
+    footer { background: var(--surface); border-top: 1px solid var(--line); color: var(--muted); font-size: .89rem; }
+    @media (max-width: 48rem) {
+      .worksheet, .story { grid-template-columns: 1fr; }
+      .worksheet li + li { border-left: 0; border-top: 1px solid var(--line); }
+      .pair { max-width: 30rem; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "name": "CSSBuy spreadsheet en français | Tailles, photos QC et frais",
+    "inLanguage": "fr",
+    "description": "Comprendre un CSSBuy spreadsheet, vérifier les liens produits, comparer les tailles et les photos QC, puis estimer le coût livré avant de commander.",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Qu’est-ce qu’un CSSBuy spreadsheet ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "C’est une liste de repérage qui rassemble des références et des liens produits. Elle peut prendre la forme d’un tableur partagé ou d’un catalogue en ligne. Vérifiez chaque annonce chez le vendeur avant de retenir une variante."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Que vérifier si un lien produit CSSBuy ne s’ouvre plus ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Retrouvez le lien d’origine, l’identifiant de l’article et le nom de la boutique. Si une autre fiche apparaît, vérifiez à nouveau le vendeur, les mesures et le coloris."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Une photo QC suffit-elle à vérifier l’authenticité ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Une photo QC aide à contrôler la variante, les mesures et les défauts visibles. Pour vérifier l’authenticité, il faut des éléments de provenance indépendants de la photo."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quel poids utiliser pour estimer l’expédition ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Relevez le poids réel et les dimensions du colis emballé. Selon la ligne de transport, la facturation peut retenir le poids volumétrique. Comparez les devis avec les mêmes données."
+        }
+      }
+    ]
+  }
+  </script>
+<link rel="canonical" href="https://kakobuyfinds.github.io/yfnzi/">
+</head>
+<body>
+  <header class="mast">
+    <div class="wrap">
+      <a class="brand" href="https://www.cafans.com">cafans.com</a>
+      <p class="label">Carnet d’achat · Édition française</p>
+    </div>
+  </header>
+
+  <nav class="categories" aria-labelledby="categories-label">
+    <div class="wrap">
+      <p class="label" id="categories-label">Catégories CAFANS</p>
+      <ul>
+        <li><a href="https://cafans.com/category-911-Shoes.html">Chaussures</a></li>
+        <li><a href="https://cafans.com/category-912-Hoodies%2FSweaters.html">Sweats et pulls</a></li>
+        <li><a href="https://cafans.com/category-913-T-Shirts.html">T-shirts</a></li>
+        <li><a href="https://cafans.com/category-914-Jackets.html">Vestes</a></li>
+        <li><a href="https://cafans.com/category-915-Pants%2FShorts.html">Pantalons et shorts</a></li>
+        <li><a href="https://cafans.com/category-916-Headwear.html">Couvre-chefs</a></li>
+        <li><a href="https://cafans.com/category-917-Sets.html">Ensembles</a></li>
+        <li><a href="https://cafans.com/category-918-underwear%2Funderpants.html">Sous-vêtements</a></li>
+        <li><a href="https://cafans.com/category-919-Jersey.html">Maillots</a></li>
+        <li><a href="https://cafans.com/category-920-Accessories.html">Accessoires</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="wrap">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="label">Du lien vendeur au coût livré</p>
+      <h1 id="page-title">CSSBuy spreadsheet</h1>
+      <p class="intro">Un CSSBuy spreadsheet rassemble des références et des liens pour repérer des articles. Ce guide en français vous aide à vérifier la fiche d’origine, choisir une taille mesurable et comparer les frais avant de commander.</p>
+      <figure class="cover">
+        <img src="https://images.laced.com/products/cc699f9d-1080-43cc-8f7c-9f88b0688e0c.jpg?auto=format&amp;fit=max&amp;q=75&amp;w=860" width="860" height="640" alt="Basket Nike Air Max 1 blanche et bleu université avec bulle d’air visible" fetchpriority="high" loading="eager" decoding="async">
+        <figcaption>Nike Air Max 1, repère visuel pour distinguer le profil, les empiècements et le coloris d’une sneaker.</figcaption>
+      </figure>
+    </section>
+
+    <section class="block" aria-labelledby="fiche">
+      <p class="label">À relever sur chaque annonce</p>
+      <h2 id="fiche">La fiche de comparaison</h2>
+      <p class="note">Dans un catalogue CSSBuy, partez d’une référence qui vous intéresse. Même sans tableur, ces trois notes suffisent pour comparer deux fiches sans mélanger leurs variantes.</p>
+      <ul class="worksheet">
+        <li><strong>01 · Source</strong> Lien vendeur d’origine, nom de la boutique, identifiant de l’article et date de vérification.</li>
+        <li><strong>02 · Variante</strong> Référence du modèle, taille proposée, coloris exact, mesures en centimètres et disponibilité.</li>
+        <li><strong>03 · Colis</strong> Prix de l’article dans sa devise, frais de livraison locale, poids emballé et estimation d’expédition internationale.</li>
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="guides">
+      <p class="label">Trois sujets à vérifier avant l’achat</p>
+      <h2 id="guides">Le carnet de terrain</h2>
+
+      <article class="story">
+        <div>
+          <p class="label">01 · Taille et coupe</p>
+          <h3>Guide des tailles CSSBuy pour baskets et vêtements</h3>
+          <p>Pour choisir des sneakers, mesurez les deux pieds du talon à l’orteil le plus long et prenez le plus grand. Un tableau de conversion EU, US ou UK donne un repère. Vérifiez si la fiche indique une longueur de pied ou une longueur de semelle intérieure, car les deux mesures ne se comparent pas directement.</p>
+          <p>Pour une veste ou un T-shirt, posez à plat une pièce dont la coupe vous convient. Relevez la largeur de poitrine d’aisselle à aisselle, la largeur d’épaules et la longueur du dos. Pour un pantalon, comparez le tour de taille et la longueur d’entrejambe en reprenant la méthode de mesure du vendeur.</p>
+        </div>
+        <div class="pair">
+          <figure>
+            <img src="https://fr.louisvuitton.com/images/is/image/lv/1/PP_VP_L/louis-vuitton-surchemise-en-denim-brode-monogram--HVA07WY38650_PM2_Front%20view.png?hei=520&amp;wid=520" width="520" height="520" alt="Surchemise Louis Vuitton en denim bleu brodé Monogram, vue de face" loading="lazy" decoding="async">
+            <figcaption>Louis Vuitton · Ligne d’épaule</figcaption>
+          </figure>
+          <figure>
+            <img src="https://assets.christiandior.com/is/image/diorprod/013J600A0677C989_E01-2?%24default_GH%24=&amp;crop=353%2C162%2C1314%2C1673&amp;extend=0%2C0%2C0%2C250&amp;hei=540&amp;scale=0.875&amp;wid=500" width="500" height="540" alt="T-shirt Dior CD Icon noir à manches courtes" loading="lazy" decoding="async">
+            <figcaption>Dior · Coupe du T-shirt</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="story">
+        <div>
+          <p class="label">02 · Annonce et contrôle</p>
+          <h3>Liens produits CSSBuy et photos QC</h3>
+          <p>Avant de copier un lien Weidian, Taobao ou 1688, ouvrez la fiche d’origine et vérifiez que le vendeur, la taille et le coloris correspondent à vos notes. Si le catalogue et la fiche affichent des informations différentes, demandez confirmation pour la variante précise.</p>
+          <p>Lorsqu’un agent fournit des photos QC, comparez les vues de face et de dos, les coutures et l’étiquette de taille. Pour un bob, vérifiez le tour de tête en centimètres. Pour un bracelet, relevez la plage de tour de poignet et demandez un gros plan du fermoir si nécessaire.</p>
+        </div>
+        <div class="pair">
+          <figure>
+            <img src="https://media.gucci.com/style/DarkGray_Center_0_0_980x980/1761588037/858612_3HBIZ_1079_008_100_0000_Light-reversible-gg-canvas-bucket-hat.jpg" width="980" height="980" alt="Bob réversible Gucci en toile GG, modèle noir et beige" loading="lazy" decoding="async">
+            <figcaption>Gucci · Forme du bord</figcaption>
+          </figure>
+          <figure>
+            <img src="https://assets.hermes.com/is/image/hermesproduct/kelly-double-tour-bracelet--064642CC37-front-wm-2-0-0-800-800_g.jpg" width="800" height="800" alt="Bracelet Hermès Kelly Double Tour en cuir fauve avec fermoir doré" loading="lazy" decoding="async">
+            <figcaption>Hermès · Fermoir du bracelet</figcaption>
+          </figure>
+        </div>
+      </article>
+
+      <article class="budget">
+        <p class="label">03 · Expédition</p>
+        <h3>Estimer les frais de livraison CSSBuy</h3>
+        <p>Additionnez le prix de l’article, le transport local, les frais de service ou d’emballage éventuels, puis le devis d’expédition internationale. Notez la devise de chaque montant et prévoyez, selon la destination, les taxes et frais à l’arrivée applicables.</p>
+        <p>Pour comparer deux lignes de transport ou un envoi groupé, utilisez le même pays de destination, le même poids réel et les mêmes dimensions du colis emballé. Vérifiez si le tarif repose sur le poids volumétrique, puis comparez le suivi et les conditions d’indemnisation.</p>
+      </article>
+    </section>
+
+    <section class="block faq" aria-labelledby="questions">
+      <h2 id="questions">Questions fréquentes</h2>
+      <details open>
+        <summary>Qu’est-ce qu’un CSSBuy spreadsheet ?</summary>
+        <p>C’est une liste de repérage qui rassemble des références et des liens produits. Elle peut prendre la forme d’un tableur partagé ou d’un catalogue en ligne. Vérifiez chaque annonce chez le vendeur avant de retenir une variante.</p>
+      </details>
+      <details>
+        <summary>Que vérifier si un lien produit CSSBuy ne s’ouvre plus ?</summary>
+        <p>Retrouvez le lien d’origine, l’identifiant de l’article et le nom de la boutique. Si une autre fiche apparaît, vérifiez à nouveau le vendeur, les mesures et le coloris.</p>
+      </details>
+      <details>
+        <summary>Une photo QC suffit-elle à vérifier l’authenticité ?</summary>
+        <p>Une photo QC aide à contrôler la variante, les mesures et les défauts visibles. Pour vérifier l’authenticité, il faut des éléments de provenance indépendants de la photo.</p>
+      </details>
+      <details>
+        <summary>Quel poids utiliser pour estimer l’expédition ?</summary>
+        <p>Relevez le poids réel et les dimensions du colis emballé. Selon la ligne de transport, la facturation peut retenir le poids volumétrique. Comparez les devis avec les mêmes données.</p>
+      </details>
+    </section>
+
+    <div class="block cta">
+      <a class="button" href="https://www.cafans.com">Parcourir le catalogue CAFANS</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <a class="brand" href="https://www.cafans.com">cafans.com</a>
+      <p>Guide éditorial indépendant. Les photos de marques servent de repères visuels.</p>
+    </div>
+  </footer>
+</body>
+</html>
